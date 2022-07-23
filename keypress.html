@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="inputE">
+    <button type="button" id="botoneb">Enviar</button>
+    <p id="estado"></p>
+
+    <script>
+        const botoneb = document.getElementById("botoneb")
+        const estado = document.getElementById("estado")
+
+        const letras = []
+        const inputE = document.getElementById("inputE")
+        inputE.addEventListener("keypress", (event) => {
+            const arg = event.key
+            letras.push(`-- ${arg} -- `)
+        })
+        botoneb.addEventListener("click", () => { 
+            mandar(letras)
+        
+        })
+
+
+        const mandar = async (letras) => {
+            datos = { tecla: letras }
+            url = 'https://62cf447f826a88972d0b2de0.mockapi.io/letras'
+            const response = fetch(url, {
+                method: 'POST',
+                mode: 'cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datos)
+            }).then((resp) => estado.textContent='OK').catch(error => estado.textContent='error')
+        }
+    </script>
+</body>
+
+</html>
